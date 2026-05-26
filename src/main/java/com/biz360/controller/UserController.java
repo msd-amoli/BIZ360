@@ -1,6 +1,7 @@
 package com.biz360.controller;
 
 import com.biz360.dto.UserResponse;
+import com.biz360.dto.UserUpdateRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -41,5 +42,17 @@ public class UserController {
     @GetMapping("/{id}")
     public UserResponse getUserById(@PathVariable Long id){
         return userService.getUserById(id);
+    }
+
+    @PutMapping("/{id}")
+    public UserResponse updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateRequest userRequest){
+        return userService.updateUser(id, userRequest);
+
+    }
+
+    @DeleteMapping("/{id}")
+    public String deleteUser(@PathVariable Long id){
+        userService.deleteUser(id);
+        return "User Deleted Successfully";
     }
 }

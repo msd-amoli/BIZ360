@@ -16,7 +16,7 @@ public class Users {
     private String name;
     @Column(nullable = false)
     private String password;
-    @Column(nullable = false, unique = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @ManyToOne
