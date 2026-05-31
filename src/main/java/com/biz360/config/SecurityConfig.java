@@ -33,6 +33,7 @@ public class SecurityConfig {
 
                         // example: both USER & ADMIN (future)
                         .requestMatchers("/profile/**").hasAnyRole("USER", "ADMIN")
+                                .requestMatchers("/products/**").hasRole("ADMIN")
 
                         .anyRequest().authenticated()
                              // everything else protected

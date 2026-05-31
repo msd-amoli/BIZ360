@@ -27,7 +27,7 @@ public class Product {
     private Double basePrice;
 
     @Column(nullable = false)
-    private String status;
+    private Boolean active;
 
 
     private LocalDateTime createdAt;
