@@ -1,6 +1,7 @@
 package com.biz360.controller;
 
 
+import com.biz360.dto.AuthResponse;
 import com.biz360.dto.LoginRequest;
 import com.biz360.entity.Users;
 import com.biz360.repository.UserRepository;
@@ -25,11 +26,22 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest loginRequest) {
+    public AuthResponse login(@RequestBody LoginRequest loginRequest) {
         Users user = userRepository.findByEmail(loginRequest.getEmail()).orElseThrow(()-> new RuntimeException("Invalid email"));
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid password");
         }
-        return jwtUtil.generateToken(user.getEmail());
+        String token = jwtUtil.generateToken(user.getEmail(), user.getRole().getName());
+
+        AuthResponse response = new AuthResponse();
+        response.setToken(token);
+        response.setEmail(user.getEmail());
+        response.setRole(user.getRole().getName());
+
+        return response;
+    }
+    @PostMapping("/logout")
+    public String logout() {
+        return "Logged out successfully";
     }
 }
