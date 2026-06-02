@@ -35,6 +35,7 @@ public class SecurityConfig {
                         .requestMatchers("/profile/**").hasAnyRole("USER", "ADMIN")
                                 .requestMatchers("/products/**").hasRole("ADMIN")
                                 .requestMatchers("/uoms/**").hasRole("ADMIN")
+                                .requestMatchers("/warehouses/**").hasRole("ADMIN")
 
                         .anyRequest().authenticated()
                              // everything else protected
