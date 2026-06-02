@@ -17,6 +17,7 @@ public interface ProductUomRepository extends JpaRepository<ProductUom , Long> {
     Optional<ProductUom> findByProductAndUom(Product product, UOM uom);
 
     Optional<ProductUom> findByBarcode(String barcode);
+    Optional<ProductUom> findByProductAndUom_NameIgnoreCase(Product product, String uomName);
 
 
 
