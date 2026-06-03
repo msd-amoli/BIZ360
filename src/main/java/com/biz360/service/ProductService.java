@@ -51,6 +51,7 @@ public class ProductService {
         existingProduct.setName(product.getName());
         existingProduct.setDescription(product.getDescription());
         existingProduct.setBasePrice(product.getBasePrice());
+        existingProduct.setMinStockLevel(product.getMinStockLevel());
 
         return productsRepository.save(existingProduct);
 
