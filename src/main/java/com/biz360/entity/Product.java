@@ -29,6 +29,8 @@ public class Product {
     @Column(nullable = false)
     private Boolean active;
 
+    @Column(nullable = false)
+    private Double minStockLevel = 0.0;
 
     private LocalDateTime createdAt;
 }

@@ -2,6 +2,7 @@ package com.biz360.service;
 
 
 import com.biz360.dto.InventoryResponse;
+import com.biz360.dto.UomQuantity;
 import com.biz360.entity.*;
 import com.biz360.repository.InventoryRepository;
 import com.biz360.repository.ProductUomRepository;
@@ -78,21 +79,15 @@ import java.util.List;
            return inventoryRepository.save(inventory);
        }
 
-       public List<InventoryResponse> getAllInventory() {
 
-           List<Inventory> inventoryList = inventoryRepository.findAll();
 
-           return inventoryList.stream().map(inv -> {
-               InventoryResponse res = new InventoryResponse();
+           public List<InventoryResponse> getAllInventory() {
+               return inventoryRepository.findAll()
+                       .stream()
+                       .map(this::mapToResponse)
+                       .toList();
+           }
 
-               res.setProductCode(inv.getProduct().getProductCode());
-               res.setProductName(inv.getProduct().getName());
-               res.setWarehouseName(inv.getWarehouse().getName());
-               res.setQuantity(inv.getQuantity());
-
-               return res;
-           }).toList();
-       }
 
     public List<InventoryResponse> getInventoryByProduct(String productCode) {
 
@@ -101,14 +96,8 @@ import java.util.List;
 
         return inventoryRepository.findByProduct(product)
                 .stream()
-                .map(inv -> {
-                    InventoryResponse res = new InventoryResponse();
-                    res.setProductCode(product.getProductCode());
-                    res.setProductName(product.getName());
-                    res.setWarehouseName(inv.getWarehouse().getName());
-                    res.setQuantity(inv.getQuantity());
-                    return res;
-                }).toList();
+                .map(this::mapToResponse)
+                .toList();
     }
 
     public List<InventoryResponse> getInventoryByWarehouse(String warehouseName) {
@@ -118,14 +107,45 @@ import java.util.List;
 
         return inventoryRepository.findByWarehouse(warehouse)
                 .stream()
-                .map(inv -> {
-                    InventoryResponse res = new InventoryResponse();
-                    res.setProductCode(inv.getProduct().getProductCode());
-                    res.setProductName(inv.getProduct().getName());
-                    res.setWarehouseName(warehouse.getName());
-                    res.setQuantity(inv.getQuantity());
-                    return res;
+                .map(this::mapToResponse)
+                .toList();
+    }
+    private InventoryResponse mapToResponse(Inventory inv) {
+
+        InventoryResponse res = new InventoryResponse();
+
+        res.setProductCode(inv.getProduct().getProductCode());
+        res.setProductName(inv.getProduct().getName());
+        res.setWarehouseName(inv.getWarehouse().getName());
+
+        double baseQty = inv.getQuantity();
+        res.setBaseQuantity(baseQty);
+
+        // 🔥 UOM Breakdown
+        List<UomQuantity> breakdown = productUomRepository
+                .findByProduct(inv.getProduct())
+                .stream()
+                .map(pu -> {
+                    UomQuantity uq = new UomQuantity();
+                    uq.setUom(pu.getUom().getName());
+
+                    double qty = baseQty / pu.getConversionFactor();
+                    uq.setQuantity(qty);
+
+                    return uq;
                 }).toList();
+
+        res.setUomBreakdown(breakdown);
+
+        return res;
+    }
+    public List<InventoryResponse> getLowStockItems() {
+
+        return inventoryRepository.findAll()
+                .stream()
+                .filter(inv -> inv.getQuantity() <= inv.getProduct().getMinStockLevel())
+                .map(this::mapToResponse)
+                .toList();
     }
 
    }

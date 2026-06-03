@@ -50,4 +50,9 @@ public class InventoryController {
     public List<InventoryResponse> getByWarehouse(@PathVariable String warehouseName) {
         return inventoryService.getInventoryByWarehouse(warehouseName);
     }
+
+    @GetMapping("/low-stock")
+    public List<InventoryResponse> getLowStockItems() {
+        return inventoryService.getLowStockItems();
+    }
 }
