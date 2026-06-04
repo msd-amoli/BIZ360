@@ -21,7 +21,7 @@ public class Invoice {
 
     private String customerName;
 
-    private Double totalAmount;
+
 
     private LocalDateTime createdAt;
 
@@ -35,5 +35,7 @@ public class Invoice {
     private Double vat;
 
     private Double netTotal;
+
+    private String status;
 
 }
