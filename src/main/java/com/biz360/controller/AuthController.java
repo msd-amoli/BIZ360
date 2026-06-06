@@ -6,6 +6,7 @@ import com.biz360.dto.LoginRequest;
 import com.biz360.entity.Users;
 import com.biz360.repository.UserRepository;
 import com.biz360.security.JwtUtil;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +42,8 @@ public class AuthController {
         return response;
     }
     @PostMapping("/logout")
-    public String logout() {
-        return "Logged out successfully";
+    public ResponseEntity<String> logout() {
+
+        return ResponseEntity.ok("Logged out successfully");
     }
 }
