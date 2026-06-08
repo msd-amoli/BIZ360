@@ -1,16 +1,5 @@
-import { Link } from "react-router-dom";
-
-function DashboardPage(){
-
-    return (
-        <div>
-            <h1>Dashboard page</h1>
-
-            <Link to={"/"}>
-            Back to Login
-            </Link>
-        </div>
-    );
+function DashboardPage() {
+  return <h1>Dashboard Page</h1>;
 }
 
 export default DashboardPage;
