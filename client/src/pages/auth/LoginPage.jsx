@@ -1,14 +1,65 @@
+import { useState } from "react";
+import "../../styles/login.css";
+import { login } from "../../services/authService";
+import { useNavigate } from "react-router-dom";
+function LoginPage() {
+    const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-import { Link } from "react-router-dom";
-function LoginPage(){
-    return (
-        <div>
-            <h1>Login page</h1>
+  try {
+    const response = await login(email, password);
 
-            <Link to={"/dashboard"}>
-                Go To dashboard
-            </Link>
-        </div>
-    );
+    
+    localStorage.setItem("token", response.token);
+localStorage.setItem("email", response.email);
+localStorage.setItem("role", response.role);
+navigate("/dashboard");
+console.log("Token Stored");
+console.log("Role:", response.role);
+  } catch (error) {
+    console.error("Login Failed:", error);
+  }
+};
+
+  return (
+    <div className="login-container">
+      <div className="login-card">
+        <h1>BIZ360 ERP</h1>
+        <p>Sign in to continue</p>
+
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>Email</label>
+
+            <input
+              type="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Password</label>
+
+            <input
+              type="password"
+              placeholder="Enter password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+
+          <button type="submit">
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 }
+
 export default LoginPage;

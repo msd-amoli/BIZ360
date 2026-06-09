@@ -12,12 +12,13 @@ import PurchasesPage from "../pages/purchase/PurchasePage";
 import LowStockReportPage from "../pages/reports/LowStockReport";
 import AiAssistantPage from "../pages/ai-assistant/AiAssistantPage";
 import MainLayout from "../components/layout/MainLayout";
+import ProtectedRoute from "./ProtectedRoute";
 function AppRoutes() {
   return (
   <Routes>
   <Route path="/" element={<LoginPage />} />
 
-  <Route element={<MainLayout />}>
+  <Route element={ <ProtectedRoute><MainLayout /></ProtectedRoute>}>
     <Route path="/dashboard" element={<DashboardPage />} />
 
     <Route path="/products" element={<ProductsPage />} />
