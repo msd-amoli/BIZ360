@@ -13,6 +13,7 @@ import LowStockReportPage from "../pages/reports/LowStockReport";
 import AiAssistantPage from "../pages/ai-assistant/AiAssistantPage";
 import MainLayout from "../components/layout/MainLayout";
 import ProtectedRoute from "./ProtectedRoute";
+import ProductDetailPage from "../pages/masters/ProductDetailPage"
 function AppRoutes() {
   return (
   <Routes>
@@ -22,6 +23,10 @@ function AppRoutes() {
     <Route path="/dashboard" element={<DashboardPage />} />
 
     <Route path="/products" element={<ProductsPage />} />
+    <Route
+  path="/products/:productCode"
+  element={<ProductDetailPage />}
+/>
     <Route path="/uom" element={<UomPage />} />
     <Route path="/product-uom" element={<ProductUomPage />} />
     <Route path="/warehouses" element={<WarehousesPage />} />

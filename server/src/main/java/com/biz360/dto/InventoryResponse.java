@@ -10,7 +10,7 @@ public class InventoryResponse {
     private String productCode;
     private String productName;
     private String warehouseName;
-
+    private Double minStockLevel;
 
     private Double baseQuantity;
     private List<UomQuantity> uomBreakdown;

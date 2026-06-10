@@ -24,3 +24,7 @@ export const getLowStock = async () => {
   const response = await api.get("/inventory/low-stock");
   return response.data;
 };
+export const getLowStockItems = async () => {
+  const response = await api.get("/inventory/low-stock");
+  return response.data;
+};

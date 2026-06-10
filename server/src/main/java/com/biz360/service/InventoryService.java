@@ -117,7 +117,7 @@ import java.util.List;
         res.setProductCode(inv.getProduct().getProductCode());
         res.setProductName(inv.getProduct().getName());
         res.setWarehouseName(inv.getWarehouse().getName());
-
+        res.setMinStockLevel(inv.getProduct().getMinStockLevel());
         double baseQty = inv.getQuantity();
         res.setBaseQuantity(baseQty);
 

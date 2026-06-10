@@ -38,6 +38,7 @@ public class AuthController {
         response.setToken(token);
         response.setEmail(user.getEmail());
         response.setRole(user.getRole().getName());
+        response.setName(user.getName());
 
         return response;
     }

@@ -16,9 +16,10 @@ function LoginPage() {
     localStorage.setItem("token", response.token);
 localStorage.setItem("email", response.email);
 localStorage.setItem("role", response.role);
+localStorage.setItem("name", response.name);
+
 navigate("/dashboard");
-console.log("Token Stored");
-console.log("Role:", response.role);
+
   } catch (error) {
     console.error("Login Failed:", error);
   }
