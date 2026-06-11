@@ -22,3 +22,15 @@ export const getProductUoms = async (
 
   return response.data;
 };
+export const addProductUom = async (
+  productCode,
+  uomName,
+  payload
+) => {
+  const response = await api.post(
+    `/products/${productCode}/uoms?uomName=${uomName}`,
+    payload
+  );
+
+  return response.data;
+};

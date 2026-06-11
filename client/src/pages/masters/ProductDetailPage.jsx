@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom"; // Added Link for toolbar navigation
-
+import { getUoms } from "../../services/uomService";
 import {
   getProductByCode,
   getProductUoms,
+   addProductUom,
 } from "../../services/productServices";
+
 
 import "../../styles/productDetail.css";
 
@@ -14,15 +16,31 @@ function ProductDetailPage() {
   const [product, setProduct] = useState(null);
   const [uoms, setUoms] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showUomModal, setShowUomModal] =
+  useState(false);
+
+const [allUoms, setAllUoms] = useState([]);
+
+const [uomForm, setUomForm] = useState({
+  uomName: "",
+  conversionFactor: "",
+  barcode: "",
+});
 
   useEffect(() => {
     const loadData = async () => {
       try {
-        const [productData, uomData] = await Promise.all([
-          getProductByCode(productCode),
-          getProductUoms(productCode),
-        ]);
-
+        const [
+  productData,
+  uomData,
+  masterUoms,
+] = await Promise.all([
+  getProductByCode(productCode),
+  getProductUoms(productCode),
+  
+  getUoms(),
+]);
+setAllUoms(masterUoms),
         setProduct(productData);
         setUoms(uomData);
       } catch (error) {
@@ -37,8 +55,54 @@ function ProductDetailPage() {
 
   if (loading) return <div className="loading-state"><h2>Loading Product...</h2></div>;
   if (!product) return <div className="error-state"><h2>Product Not Found</h2></div>;
+const availableUoms = allUoms.filter(
+  (masterUom) =>
+    !uoms.some(
+      (assignedUom) =>
+        assignedUom.uom.name ===
+        masterUom.name
+    )
+);
 
+const handleAddUom = async (e) => {
+  e.preventDefault();
+
+  try {
+    await addProductUom(
+      productCode,
+      uomForm.uomName,
+      {
+        conversionFactor: Number(
+          uomForm.conversionFactor
+        ),
+        barcode: uomForm.barcode,
+      }
+    );
+
+    const updatedUoms =
+      await getProductUoms(productCode);
+
+    setUoms(updatedUoms);
+
+    setShowUomModal(false);
+
+    setUomForm({
+      uomName: "",
+      conversionFactor: "",
+      barcode: "",
+    });
+
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error?.response?.data ||
+      "Failed to add UOM"
+    );
+  }
+};
   return (
+    <>
     <div className="product-detail-page">
       
       {/* TOOLBAR / BREADCRUMBS */}
@@ -100,8 +164,19 @@ function ProductDetailPage() {
       {/* UOM SECTION */}
       <div className="uom-section">
         <div className="section-header">
-          <h2>Product Units of Measure (UOM)</h2>
-        </div>
+
+  <h2>Product Units of Measure (UOM)</h2>
+
+  <button
+    className="btn-primary"
+    onClick={() =>
+      setShowUomModal(true)
+    }
+  >
+    Add UOM
+  </button>
+
+</div>
 
         <div className="table-container">
           <table className="uom-table">
@@ -132,7 +207,113 @@ function ProductDetailPage() {
           </table>
         </div>
       </div>
+      
     </div>
+    {showUomModal && (
+  <div className="modal-overlay">
+
+    <div className="modal">
+
+      <div className="modal-header">
+        <h3>Add Product UOM</h3>
+      </div>
+
+      <form onSubmit={handleAddUom}>
+
+        <div className="form-group">
+          <label>UOM</label>
+
+          <select
+            value={uomForm.uomName}
+            onChange={(e) =>
+              setUomForm({
+                ...uomForm,
+                uomName: e.target.value,
+              })
+            }
+            required
+          >
+            <option value="">
+              Select UOM
+            </option>
+
+            {availableUoms.map((uom) => (
+              <option
+                key={uom.id}
+                value={uom.name}
+              >
+                {uom.name}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label>
+            Conversion Factor
+          </label>
+
+          <input
+            type="number"
+            step="0.01"
+            value={
+              uomForm.conversionFactor
+            }
+            onChange={(e) =>
+              setUomForm({
+                ...uomForm,
+                conversionFactor:
+                  e.target.value,
+              })
+            }
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label>Barcode</label>
+
+          <input
+            type="text"
+            value={uomForm.barcode}
+            onChange={(e) =>
+              setUomForm({
+                ...uomForm,
+                barcode:
+                  e.target.value,
+              })
+            }
+          />
+        </div>
+
+        <div className="modal-actions">
+
+          <button
+            type="button"
+            className="btn-secondary"
+            onClick={() =>
+              setShowUomModal(false)
+            }
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            className="btn-primary"
+          >
+            Save
+          </button>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+)}
+    </>
   );
 }
 

@@ -28,7 +28,7 @@ navigate("/dashboard");
   return (
     <div className="login-container">
       <div className="login-card">
-        <h1>BIZ360 ERP</h1>
+        <h1>BIZ<sup>0</sup> ERP</h1>
         <p>Sign in to continue</p>
 
         <form onSubmit={handleSubmit}>
