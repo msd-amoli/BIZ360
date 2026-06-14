@@ -13,8 +13,10 @@ const handleLogout= () =>{
 
   return (
     <header className="navbar">
-      <h2>BIZ360 ERP</h2>
-
+      <div className="logodiv">
+      <img src="../../public/logog.png" width={100}/>
+      <h2>BIZ<sup>o</sup> ERP</h2>
+</div>
       <div className="user">
     <div>
   <div>{email}</div>

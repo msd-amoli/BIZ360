@@ -101,20 +101,23 @@ public class PurchaseService {
                 request.getDiscount() == null
                         ? 0
                         : request.getDiscount();
-
+        double discountAmount = subTotal * discount/100;
         double vat =
                 request.getVat() == null
                         ? 0
                         : request.getVat();
-
+        double vatAmount =
+                subTotal * vat / 100;
         double netTotal =
-                subTotal - discount + vat;
+                subTotal - discountAmount + vatAmount;
 
         purchase.setItems(items);
         purchase.setSubTotal(subTotal);
         purchase.setDiscount(discount);
         purchase.setVat(vat);
+        purchase.setVatAmount(vatAmount);
         purchase.setNetTotal(netTotal);
+        purchase.setDiscountAmount(discountAmount);
 
         Purchase savedPurchase =
                 purchaseRepository.save(purchase);
@@ -198,6 +201,8 @@ public class PurchaseService {
         response.setSubTotal(purchase.getSubTotal());
         response.setDiscount(purchase.getDiscount());
         response.setVat(purchase.getVat());
+        response.setDiscountAmount(purchase.getDiscountAmount());
+        response.setVatAmount(purchase.getVatAmount());
         response.setNetTotal(purchase.getNetTotal());
 
         response.setCreatedAt(purchase.getCreatedAt());
