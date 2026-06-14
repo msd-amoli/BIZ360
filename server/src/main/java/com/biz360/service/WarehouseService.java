@@ -18,13 +18,14 @@ public class WarehouseService {
 
     public Warehouse createWarehouse(Warehouse warehouse) {
         String name = warehouse.getName().trim();
-
+        String location = warehouse.getLocation().trim();
         if(warehouseRepository.existsByName(name)) {
             throw new RuntimeException("Warehouse with this name already exists");
 
         }
 
         warehouse.setName(name);
+        warehouse.setLocation(location);
 
         return warehouseRepository.save(warehouse);
     }

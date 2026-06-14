@@ -14,6 +14,8 @@ import AiAssistantPage from "../pages/ai-assistant/AiAssistantPage";
 import MainLayout from "../components/layout/MainLayout";
 import ProtectedRoute from "./ProtectedRoute";
 import ProductDetailPage from "../pages/masters/ProductDetailPage"
+import CreatePurchasePage from "../pages/purchase/CreatePurchasePage";
+import PurchaseDetailPage from "../pages/purchase/PurchasesDetailPage";
 function AppRoutes() {
   return (
   <Routes>
@@ -36,6 +38,15 @@ function AppRoutes() {
     <Route path="/invoices" element={<InvoicesPage />} />
 
     <Route path="/purchases" element={<PurchasesPage />} />
+    <Route
+  path="/purchases/new"
+  element={<CreatePurchasePage />}
+/>
+
+<Route
+  path="/purchases/:id"
+  element={<PurchaseDetailPage />}
+/>
 
     <Route
       path="/reports/low-stock"

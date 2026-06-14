@@ -51,10 +51,7 @@ const menuItems = [
         label: "Sales Invoices",
         path: "/invoices",
       },
-      {
-        label: "Create Invoice",
-        path: "/invoices/create",
-      },
+    
     ],
   },
 
@@ -65,10 +62,7 @@ const menuItems = [
         label: "Purchase List",
         path: "/purchases",
       },
-      {
-        label: "Create Purchase",
-        path: "/purchases/create",
-      },
+     
     ],
   },
 
