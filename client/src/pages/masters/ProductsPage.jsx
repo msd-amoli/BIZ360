@@ -1,7 +1,7 @@
 import "../../styles/products.css";
 import { useEffect, useState } from "react";
 import { getProducts } from "../../services/productServices";
-import { useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 function ProductsPage() {
     const navigate = useNavigate();
     const [products, setProducts] = useState([]);
@@ -53,9 +53,12 @@ if (loading) {
           </p>
         </div>
 
-        <button className="add-product-btn">
-          Add Product
-        </button>
+     <Link
+          to="/products/new"
+          className="btn-primary"
+        >
+          + New
+        </Link>
       </div>
 
       <div className="products-toolbar">
@@ -77,51 +80,48 @@ if (loading) {
         <th>Name</th>
         <th>Price</th>
         <th>Min Stock</th>
-     
         <th>Status</th>
-<th>Actions</th>
       </tr>
     </thead>
 
     <tbody>
       {filteredProducts.map((product) => (
-        <tr key={product.id}>
+        <tr
+          key={product.id}
+          className="clickable-row"
+          onClick={() =>
+            navigate(
+              `/products/${product.productCode}`
+            )
+          }
+        >
           <td>{product.productCode}</td>
 
           <td>{product.name}</td>
 
-          <td>{product.basePrice}</td>
+          <td>
+            {Number(
+              product.basePrice
+            ).toFixed(2)}
+          </td>
 
           <td>
             {product.minStockLevel}
           </td>
 
-        <td>
-  <span
-    className={
-      product.active
-        ? "status-active"
-        : "status-inactive"
-    }
-  >
-    {product.active
-      ? "Active"
-      : "Inactive"}
-  </span>
-</td>
-
-<td>
-<button
-  className="action-btn"
-  onClick={() =>
-    navigate(
-      `/products/${product.productCode}`
-    )
-  }
->
-  View
-</button>
-</td>
+          <td>
+            <span
+              className={
+                product.active
+                  ? "status-active"
+                  : "status-inactive"
+              }
+            >
+              {product.active
+                ? "Active"
+                : "Inactive"}
+            </span>
+          </td>
         </tr>
       ))}
     </tbody>

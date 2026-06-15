@@ -1,9 +1,10 @@
 import { useNavigate } from "react-router-dom";
+import logo from "../../assets/logog.png"
 function Navbar() {
   const navigate = useNavigate();
   const email = localStorage.getItem('email');
   const role = localStorage.getItem("role");
-
+  
 const handleLogout= () =>{
   localStorage.removeItem('token');
   localStorage.removeItem('email');
@@ -14,7 +15,7 @@ const handleLogout= () =>{
   return (
     <header className="navbar">
       <div className="logodiv">
-      <img src="../../public/logog.png" width={100}/>
+      <img src={logo} width={100}/>
       <h2>BIZ<sup>o</sup> ERP</h2>
 </div>
       <div className="user">

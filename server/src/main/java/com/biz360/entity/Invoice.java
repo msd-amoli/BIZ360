@@ -31,8 +31,10 @@ public class Invoice {
     private Double subTotal;
 
     private Double discount;
+    private Double discountAmount;
 
     private Double vat;
+    private Double vatAmount;
 
     private Double netTotal;
 

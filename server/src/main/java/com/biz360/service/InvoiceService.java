@@ -93,14 +93,17 @@ public class InvoiceService {
         //  Financials
         double discount = request.getDiscount() == null ? 0 : request.getDiscount();
         double vat = request.getVat() == null ? 0 : request.getVat();
+        double discountAmount =  subTotal * discount/100;
+        double vatAmount = subTotal * vat/100;
+        double preTotal = subTotal - discountAmount ;
 
-        double preTotal = subTotal - discount ;
-
-        double netTotal = preTotal + (preTotal*(vat/100));
+        double netTotal = preTotal + vatAmount;
 
         invoice.setItems(items);
         invoice.setSubTotal(subTotal);
         invoice.setDiscount(discount);
+        invoice.setDiscountAmount(discountAmount);
+        invoice.setVatAmount(vatAmount);
         invoice.setVat(vat);
         invoice.setNetTotal(netTotal);
 
@@ -199,7 +202,8 @@ public class InvoiceService {
         response.setDiscount(invoice.getDiscount());
         response.setVat(invoice.getVat());
         response.setNetTotal(invoice.getNetTotal());
-
+        response.setDiscountAmount(invoice.getDiscountAmount());
+        response.setVatAmount(invoice.getVatAmount());
         response.setCreatedAt(invoice.getCreatedAt());
 
         List<InvoiceItemResponse> items =

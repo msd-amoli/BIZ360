@@ -16,49 +16,56 @@ import ProtectedRoute from "./ProtectedRoute";
 import ProductDetailPage from "../pages/masters/ProductDetailPage"
 import CreatePurchasePage from "../pages/purchase/CreatePurchasePage";
 import PurchaseDetailPage from "../pages/purchase/PurchasesDetailPage";
+import CreateInvoicePage from "../pages/sales/CreateInvoicePage";
+import InvoiceDetailPage from "../pages/sales/InvoiceDetailPage";
+import CreateProductPage from "../pages/masters/CreateProductPage";
+
 function AppRoutes() {
   return (
-  <Routes>
-  <Route path="/" element={<LoginPage />} />
+    <Routes>
+      <Route path="/" element={<LoginPage />} />
 
-  <Route element={ <ProtectedRoute><MainLayout /></ProtectedRoute>}>
-    <Route path="/dashboard" element={<DashboardPage />} />
+      <Route element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
+        <Route path="/dashboard" element={<DashboardPage />} />
 
-    <Route path="/products" element={<ProductsPage />} />
-    <Route
-  path="/products/:productCode"
-  element={<ProductDetailPage />}
-/>
-    <Route path="/uom" element={<UomPage />} />
-    <Route path="/product-uom" element={<ProductUomPage />} />
-    <Route path="/warehouses" element={<WarehousesPage />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route
+          path="/products/:productCode"
+          element={<ProductDetailPage />}
+        />
+        <Route path="/uom" element={<UomPage />} />
+        <Route path="/product-uom" element={<ProductUomPage />} />
+        <Route path="/warehouses" element={<WarehousesPage />} />
 
-    <Route path="/inventory" element={<InventoryPage />} />
+        <Route path="/inventory" element={<InventoryPage />} />
 
-    <Route path="/invoices" element={<InvoicesPage />} />
+        <Route path="/invoices" element={<InvoicesPage />} />
 
-    <Route path="/purchases" element={<PurchasesPage />} />
-    <Route
-  path="/purchases/new"
-  element={<CreatePurchasePage />}
-/>
+        <Route path="/purchases" element={<PurchasesPage />} />
+        <Route
+          path="/purchases/new"
+          element={<CreatePurchasePage />}
+        />
+      
 
-<Route
-  path="/purchases/:id"
-  element={<PurchaseDetailPage />}
-/>
+        <Route
+          path="/purchases/:id"
+          element={<PurchaseDetailPage />}
+        />
+  <Route path="/invoices/new" element={<CreateInvoicePage/>}/>
+  <Route path="/invoices/:id" element={<InvoiceDetailPage/>}/>
+  <Route path="/products/new" element={<CreateProductPage/>}/>
+        <Route
+          path="/reports/low-stock"
+          element={<LowStockReportPage />}
+        />
 
-    <Route
-      path="/reports/low-stock"
-      element={<LowStockReportPage />}
-    />
-
-    <Route
-      path="/ai-assistant"
-      element={<AiAssistantPage />}
-    />
-  </Route>
-</Routes>
+        <Route
+          path="/ai-assistant"
+          element={<AiAssistantPage />}
+        />
+      </Route>
+    </Routes>
   );
 }
 

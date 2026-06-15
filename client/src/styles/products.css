@@ -111,3 +111,11 @@
 .action-btn:hover {
   opacity: 0.9;
 }
+.clickable-row {
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.clickable-row:hover {
+  background: #f8fafc;
+}

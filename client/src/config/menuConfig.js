@@ -23,14 +23,7 @@ const menuItems = [
         label: "Warehouses",
         path: "/warehouses",
       },
-      {
-        label: "Customers (Coming Soon)",
-        path: null,
-      },
-      {
-        label: "Suppliers (Coming Soon)",
-        path: null,
-      },
+     
     ],
   },
 
@@ -61,6 +54,10 @@ const menuItems = [
       {
         label: "Purchase List",
         path: "/purchases",
+      },
+        {
+        label: "Suppliers (Coming Soon)",
+        path: null,
       },
      
     ],
@@ -106,9 +103,10 @@ const menuItems = [
     label: "CRM",
     children: [
       {
-        label: "Coming Soon",
+        label: "Customers (Coming Soon)",
         path: null,
       },
+    
     ],
   },
 ];
