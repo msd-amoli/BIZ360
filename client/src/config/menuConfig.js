@@ -15,10 +15,7 @@ const menuItems = [
         label: "UOM",
         path: "/uom",
       },
-      {
-        label: "Product UOM",
-        path: "/product-uom",
-      },
+      
       {
         label: "Warehouses",
         path: "/warehouses",
@@ -70,17 +67,10 @@ const menuItems = [
         label: "Low Stock Report",
         path: "/reports/low-stock",
       },
+     
       {
-        label: "Sales Report (Coming Soon)",
-        path: null,
-      },
-      {
-        label: "Purchase Report (Coming Soon)",
-        path: null,
-      },
-      {
-        label: "Product Report (Coming Soon)",
-        path: null,
+        label: "Stock Ledger",
+        path: "/inventory/ledger",
       },
       {
         label: "Profit & Loss (Coming Soon)",

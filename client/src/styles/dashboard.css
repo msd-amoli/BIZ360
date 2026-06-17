@@ -1,113 +1,293 @@
+/* ==========================================================================
+   Dashboard Page Framework Setup
+   ========================================================================== */
 .dashboard-page {
-  padding: 24px;
+  padding: 32px;
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
 }
 
+/* Loading Frameworks */
+.dashboard-loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 60vh;
+  gap: 16px;
+  color: #64748b;
+}
+
+.dashboard-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #cbd5e1;
+  border-top-color: #10b981;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   Dashboard Header Panel Styling
+   ========================================================================== */
 .dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: white;
-
-  padding: 24px;
-
+  padding: 24px 32px;
   border-radius: 12px;
-
-  margin-bottom: 24px;
-
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05);
 }
 
 .dashboard-header h1 {
-  margin-bottom: 8px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.5px;
 }
 
 .dashboard-header p {
-  color: #666;
-}
-.kpi-grid {
-  display: grid;
-
-  grid-template-columns: repeat(
-    3,
-    minmax(180px, 1fr)
-  );
-
-  gap: 16px;
-
-  margin-bottom: 24px;
-}
-.kpi-card {
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 20px;
-  border-left: 5px solid #22c55e;
-
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-
-  transition: all 0.2s ease;
-  text-align: center;
-}
-
-.kpi-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.12);
-}
-
-.kpi-title {
-  display: block;
-
-  font-size: 12px;
-
-  font-weight: 600;
-
-  text-transform: uppercase;
-
   color: #64748b;
-
-  margin-bottom: 8px;
-
-  letter-spacing: 0.5px;
-}
-.kpi-value {
-  font-size: 28px;
-
-  font-weight: 700;
-
-  color: #111827;
-
+  font-size: 14px;
   margin: 0;
 }
-.dashboard-section {
-  margin-top: 30px;
 
+.dashboard-date-badge {
+  background: #f1f5f9;
+  color: #334155;
+  padding: 6px 14px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid #e2e8f0;
+}
+
+/* ==========================================================================
+   High-Impact KPI Grid Structure (5 Items in One Clean Row)
+   ========================================================================== */
+.kpi-grid {
+  display: grid;
+  /* Uses flexible fractions by default to squeeze down smoothly, avoiding hard minimums */
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Base Wrapper Overrides for KpiCard nested styling */
+.kpi-card-wrapper .kpi-card {
+  text-align: left !important; /* Left alignment looks much cleaner */
+  border-left: none !important; /* Stripping the basic native border alignment */
+  border-top: 4px solid #cbd5e1; /* Moving accent bar up for high-end SaaS card feeling */
   background: white;
-
-  padding: 20px;
-
+  padding: 20px 24px;
   border-radius: 12px;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05);
+  border-inline: 1px solid #e2e8f0;
+  border-bottom: 1px solid #e2e8f0;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+.kpi-card-wrapper .kpi-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 20px -8px rgba(15, 23, 42, 0.15);
+}
+
+.kpi-card-wrapper .kpi-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  margin-bottom: 10px;
+}
+
+.kpi-card-wrapper .kpi-value {
+  font-size: 28px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: -0.03em;
+}
+
+/* Dynamic Architectural Color Chromas mapped to item contexts */
+.metric-products .kpi-card { border-top-color: #0ea5e9; }  /* Sky Blue */
+.metric-purchases .kpi-card { border-top-color: #6366f1; } /* Indigo */
+.metric-sales .kpi-card { border-top-color: #10b981; }     /* Emerald Green Cashflow Indicator */
+.metric-inventory .kpi-card { border-top-color: #f59e0b; } /* Deep Amber */
+.metric-lowstock .kpi-card { border-top-color: #ef4444; }  /* Alert Red Flag */
+
+/* Target text mutations specifically for critical deficit numbers */
+.metric-lowstock .kpi-value {
+  color: #ef4444;
+}
+
+/* ==========================================================================
+   Admin Low Stock Panel & Datatable Controls
+   ========================================================================== */
+.dashboard-section {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.05);
+  padding: 28px;
+}
+
+.section-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 16px;
+}
+
+.section-header-row h2 {
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+}
+
+.section-subtitle {
+  font-size: 13px;
+  color: #64748b;
+  margin: 0;
+}
+
+.alert-count-badge {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 6px;
+}
+
+/* Advanced Datatable Upgrades */
+.table-scroll-wrapper {
+  overflow-x: auto;
+  width: 100%;
 }
 
 .low-stock-table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
-  margin-top: 10px;
-}
-
-.low-stock-table th,
-.low-stock-table td {
-  padding: 12px;
-  border-bottom: 1px solid #eee;
   text-align: left;
 }
 
 .low-stock-table th {
-  background: #f8f9fa;
+  background: #f8fafc;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 14px 16px;
+  border-bottom: 2px solid #e2e8f0;
 }
-.low-stock-table tr:hover {
+
+.low-stock-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 13px;
+  color: #334155;
+  vertical-align: middle;
+}
+
+.low-stock-table tr:last-child td {
+  border-bottom: none;
+}
+
+.low-stock-table tr:hover td {
   background: #f8fafc;
 }
 
-.low-stock-table td:last-child {
-  font-weight: 700;
+/* Customized contextual column adjustments */
+.code-column-text {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.name-column-text {
+  font-weight: 500;
+}
+
+/* Status Data Pill Design */
+.stock-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.stock-pill-current {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.stock-pill-min {
+  background: rgba(245, 158, 11, 0.1);
+  color: #d97706;
+}
+
+/* Severe deficit badge styling */
+.deficit-indicator-badge {
+  background: rgba(239, 68, 68, 0.1);
   color: #dc2626;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  display: inline-block;
+}
+
+.empty-table-state {
+  text-align: center;
+  padding: 40px !important;
+  color: #059669;
+  font-size: 14px;
+  font-weight: 500;
+  background: #f0fdf4;
+  border-radius: 8px;
+}
+
+/* Responsive Adaptive Sizing constraints for smaller display screens */
+@media (max-width: 1400px) {
+  .kpi-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Tablet Screens - Drop to 2 columns */
+@media (max-width: 900px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile Screens - Stack vertically on 1 clear column */
+@media (max-width: 600px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .dashboard-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px 20px;
+  }
 }

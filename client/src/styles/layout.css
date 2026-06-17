@@ -1,100 +1,343 @@
+/* ==========================================================================
+   Layout Base Styles
+   ========================================================================== */
 .layout {
   height: 100vh;
   display: flex;
   flex-direction: column;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-.navbar {
-  height: 60px;
-  background: #1f2937;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 20px;
-}
-.user{
-  display: flex;
-  justify-content: space-between;
-  font-size: 12px;
-}
-.user>div{
-  margin-right: 16px;
-}
-.user .logout{
-  background:none;
-  color: white;
-  border-radius: 100%;
-}
 .layout-body {
   flex: 1;
   display: flex;
   overflow: hidden;
 }
 
-.sidebar {
-  width: 240px;
-  background: #111827;
-  color: white;
-  padding: 20px;
-}
-
-.sidebar ul {
-  list-style: none;
-}
-
-.sidebar li {
-  padding: 12px 0;
-  cursor: pointer;
-}
-
 .content {
   flex: 1;
-  padding: 24px;
-  background: #f5f7fa;
+  padding: 32px;
+  background: #f8fafc; 
   overflow-y: auto;
 }
-.sidebar > div {
-  margin-bottom: 20px;
-}
 
-.sidebar > div > div {
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #e5e7eb;
-}
-
-.sidebar ul {
-  list-style: none;
-  padding-left: 15px;
-}
-
-.sidebar li {
-  padding: 6px 0;
-  font-size: 14px;
-  color: #d1d5db;
-}
-
-.menu-item-active {
-  border-left: 4px solid #22c55e;
-  padding-left: 10px;
-  font-weight: 600;
-  background-color: rgba(34, 197, 94, 0.1);
-  border-radius: 4px;
-}
-
-.logodiv{
+/* ==========================================================================
+   Professional Navbar Design
+   ========================================================================== */
+.navbar {
+  height: 64px;
+  background: #1e293b; /* Premium dark slate */
+  color: white;
   display: flex;
-  align-items: end;
-  
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  border-bottom: 1px solid #334155;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  z-index: 10;
 }
 
-.logodiv>img{
-  border-radius: 10%;
+/* Branding */
+.logodiv {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.logodiv>h2{
+.navbar-logo {
+  height: 32px;
+  width: auto;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+.logodiv > h2 {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #f8fafc;
+  margin: 0;
+}
+
+.logodiv .erp-text {
+  color: #10b981; 
+  font-weight: 400;
+  font-size: 13px;
+}
+
+/* Global Search Bar */
+.search-container {
+  flex: 0 1 450px; 
+  margin: 0 20px;
+}
+
+.search-form {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 14px;
+  font-size: 13px;
+  color: #94a3b8;
+}
+
+.navbar-search-input {
+  width: 100%;
+  background: #334155;
+  border: 1px solid #475569;
+  border-radius: 8px;
+  padding: 8px 16px 8px 40px;
+  color: #f8fafc;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+
+.navbar-search-input:focus {
+  outline: none;
+  background: #475569;
+  border-color: #10b981;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+
+.navbar-search-input::placeholder {
+  color: #94a3b8;
+}
+
+/* User Section Profile */
+.user-profile-section {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  background: #0ea5e9; 
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
   font-size: 14px;
-  font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-email {
+  font-size: 13px;
+  font-weight: 500;
+  color: #f1f5f9;
+}
+
+.user-role {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+/* Modern Logout Button */
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid #475569;
+  color: #cbd5e1;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 8px;
+}
+
+.logout-btn:hover {
+  background: #ef4444; 
+  border-color: #ef4444;
+  color: white;
+}
+
+.logout-icon {
+  font-size: 13px;
+}
+
+/* ==========================================================================
+   Professional Sidebar Design
+   ========================================================================== */
+.sidebar {
+  width: 260px;
+  background: #0f172a; 
+  color: #94a3b8;
+  padding: 24px 16px;
+  border-right: 1px solid #1e293b;
+}
+
+.sidebar-menu-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-group {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Parent styling */
+.sidebar-parent-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: 6px;
+  color: #cbd5e1;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.sidebar-parent-item:hover {
+  background: #1e293b;
+  color: #f8fafc;
+}
+
+.parent-active {
+  background: #1e293b;
+  color: #10b981 !important;
+}
+
+/* Custom Dropdown Arrow Indicators */
+.arrow-indicator {
+  font-size: 8px;
+  color: #64748b;
+  transform: rotate(180deg); 
+  transition: transform 0.2s ease;
+}
+
+.arrow-indicator.rotated {
+  transform: rotate(90deg); 
+  color: #10b981;
+}
+
+/* Inner child containers */
+.sidebar-child-list {
+  list-style: none;
+  padding-left: 12px;
+  margin: 4px 0 8px 12px;
+  border-left: 1px solid #334155; 
+}
+
+.sidebar-child-item {
+  padding: 8px 16px;
+  font-size: 13px;
+  color: #94a3b8;
+  border-radius: 4px;
+  margin-top: 2px;
+  transition: all 0.15s ease;
+}
+
+.sidebar-child-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+  color: #f1f5f9;
+}
+
+/* Dynamic active states matching standard design */
+.menu-item-active {
+  color: #10b981 !important;
+  font-weight: 600;
+  background-color: rgba(16, 185, 129, 0.1) !important;
+  border-left: none; 
+  padding-left: 16px;
+}
+
+/* Container rules to anchor the absolute dropdown box */
+.search-container {
+  flex: 0 1 480px;
+  margin: 0 20px;
+  position: relative; 
+}
+
+/* Dropdown Menu Container */
+.search-results-dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  width: 100%;
+  background: #1e293b; 
+  border: 1px solid #475569;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+  max-height: 380px;
+  overflow-y: auto;
+  z-index: 999;
+}
+
+/* Category Dividers */
+.search-group {
+  padding: 6px 0;
+  border-bottom: 1px solid #334155;
+}
+
+.search-group:last-child {
+  border-bottom: none;
+}
+
+.search-group-title {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #10b981; 
+  padding: 6px 16px 4px 16px;
+  font-weight: 700;
+}
+
+/* Individual Row Items */
+.search-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.search-item:hover {
+  background: #334155; 
+}
+
+.item-icon {
+  font-size: 14px;
+}
+
+.item-text {
+  font-size: 13px;
+  color: #f1f5f9;
+  font-weight: 500;
+}
+
+.item-meta {
+  font-size: 11px;
+  color: #94a3b8;
+  margin-left: 6px;
+  font-weight: 400;
+}
+
+/* Minimal Custom Scrollbar optimization inside dropdown */
+.search-results-dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+.search-results-dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+.search-results-dropdown::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 4px;
 }

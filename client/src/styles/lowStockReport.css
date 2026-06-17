@@ -1,0 +1,181 @@
+.low-stock-report-container {
+  padding: 32px;
+  max-width: 1600px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Header Panel configurations */
+.report-header-card {
+  background: white;
+  padding: 24px 32px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+}
+
+.report-header-card h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+  letter-spacing: -0.5px;
+}
+
+.report-header-card p {
+  color: #64748b;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Native Print Action Button Layout */
+.print-report-btn {
+  background: #0f172a;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.print-report-btn:hover {
+  background: #1e293b;
+}
+
+/* Micro Scoreboards Grid */
+.report-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (max-width: 768px) {
+  .report-summary-grid { grid-template-columns: 1fr; }
+  .report-header-card { flex-direction: column; align-items: stretch; gap: 16px; }
+}
+
+.report-stat-card {
+  background: white;
+  padding: 20px 24px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  border-left: 4px solid #cbd5e1;
+}
+
+.total-alerts { border-left-color: #f59e0b; }
+.critical-alerts { border-left-color: #ef4444; }
+
+.stat-label { font-size: 12px; font-weight: 600; color: #64748b; }
+.stat-value { font-size: 28px; font-weight: 700; margin: 0; color: #0f172a; }
+.stat-desc { font-size: 11px; color: #94a3b8; }
+
+/* Filter Console Options Panel */
+.report-filter-toolbar {
+  display: flex;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.report-filter-toolbar .search-element { flex: 2 1 300px; display: flex; flex-direction: column; gap: 6px; }
+.report-filter-toolbar .select-element { flex: 1 1 180px; display: flex; flex-direction: column; gap: 6px; }
+
+.report-filter-toolbar label { font-size: 11px; font-weight: 700; text-transform: uppercase; color: #64748b; }
+.report-filter-toolbar input,
+.report-filter-toolbar select {
+  padding: 10px 14px;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 13px;
+  color: #334155;
+  outline: none;
+}
+
+.report-filter-toolbar input:focus,
+.report-filter-toolbar select:focus { border-color: #10b981; background: white; }
+
+/* Data Table Presentation Rules */
+.report-table-wrapper {
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+  overflow-x: auto;
+}
+
+.report-data-table { width: 100%; border-collapse: collapse; }
+.report-data-table th {
+  background: #f8fafc;
+  color: #475569;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 16px 24px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.report-data-table td { padding: 14px 24px; border-bottom: 1px solid #f1f5f9; font-size: 13px; color: #334155; }
+.report-data-table tr:hover td { background: #f8fafc; }
+
+.text-right { text-align: right; }
+.font-mono { font-family: ui-monospace, SFMono-Regular, monospace; }
+.font-bold { font-weight: 700; }
+.font-medium { font-weight: 500; }
+
+.product-meta-cell { display: flex; flex-direction: column; gap: 2px; }
+.sku-mono { font-family: ui-monospace, monospace; font-size: 11px; font-weight: 700; color: #64748b; }
+.sku-name { font-size: 14px; font-weight: 600; color: #0f172a; }
+.warehouse-text-cell { color: #475569; font-weight: 500; }
+
+/* Quantitative Color Highlights codes */
+.qty-zero { color: #ef4444; background: rgba(239, 68, 68, 0.08); padding: 4px 8px; border-radius: 4px; }
+.qty-warn { color: #f59e0b; font-weight: 600; }
+.deficit-highlight-cell { color: #dc2626; font-weight: 700; font-size: 14px; }
+
+/* Multi-UOM Sub Pillar elements */
+.report-uom-flex { display: flex; flex-wrap: wrap; gap: 4px; max-width: 300px; }
+.report-uom-pill { display: inline-flex; border: 1px solid #cbd5e1; border-radius: 4px; overflow: hidden; font-size: 11px; }
+.report-uom-pill .lbl { background: #475569; color: white; padding: 2px 6px; font-weight: 700; }
+.report-uom-pill .val { background: #f8fafc; color: #1e293b; padding: 2px 6px; font-weight: 600; }
+.fallback-dash { color: #cbd5e1; }
+
+/* Severity Indicators Status Badges */
+.severity-pill { display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 700; }
+.critical-pill { background: rgba(239, 68, 68, 0.1); color: #ef4444; }
+.warning-pill { background: rgba(245, 158, 11, 0.1); color: #d97706; }
+
+.report-empty-state { text-align: center; padding: 48px !important; color: #94a3b8; font-style: italic; }
+
+/* Loading Frameworks animations */
+.report-loading-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 50vh; color: #64748b; }
+.report-spinner { width: 36px; height: 36px; border: 3px solid #e2e8f0; border-top-color: #ef4444; border-radius: 50%; animation: rep-spin 0.8s linear infinite; }
+@keyframes rep-spin { to { transform: rotate(360deg); } }
+
+/* ==========================================================================
+   Global Window Browser Print Layout Adjustments Override
+   ========================================================================== */
+@media print {
+  body { background: white; color: black; }
+  .low-stock-report-container { padding: 0; }
+  .report-header-card .print-report-btn,
+  .report-filter-toolbar { display: none !important; } /* Stripping buttons and interaction bars on hard copies */
+  .report-header-card, .report-table-wrapper { border: none; box-shadow: none; padding: 0; }
+  .report-data-table th { border-bottom: 2px solid black; color: black; }
+}

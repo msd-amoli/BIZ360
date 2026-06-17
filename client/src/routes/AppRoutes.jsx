@@ -19,6 +19,7 @@ import PurchaseDetailPage from "../pages/purchase/PurchasesDetailPage";
 import CreateInvoicePage from "../pages/sales/CreateInvoicePage";
 import InvoiceDetailPage from "../pages/sales/InvoiceDetailPage";
 import CreateProductPage from "../pages/masters/CreateProductPage";
+import StockLedgerPage from "../pages/reports/StockLedgerPage";
 
 function AppRoutes() {
   return (
@@ -46,7 +47,7 @@ function AppRoutes() {
           path="/purchases/new"
           element={<CreatePurchasePage />}
         />
-      
+      <Route path="/inventory/ledger" element={<StockLedgerPage />} />
 
         <Route
           path="/purchases/:id"
