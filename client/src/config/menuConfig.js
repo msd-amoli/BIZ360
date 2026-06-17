@@ -99,6 +99,24 @@ const menuItems = [
     
     ],
   },
+  {
+    label: "HR",
+    children: [
+      {
+        label: "Employee (Coming Soon)",
+        path: null,
+      },
+      {
+        label: "Attendance (Coming Soon)",
+        path: null,
+      },
+      {
+        label: "Payslip (Coming Soon)",
+        path: null,
+      },
+    
+    ],
+  },
 ];
 
 export default menuItems;
