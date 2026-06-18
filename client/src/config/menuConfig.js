@@ -117,6 +117,20 @@ const menuItems = [
     
     ],
   },
+  {
+    label:'User',
+    children:[
+      {
+        label:"User Management",
+        path:null,
+      },
+      {
+        label:"Roles",
+        path:null,
+      }
+
+    ]
+  }
 ];
 
 export default menuItems;
