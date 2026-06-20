@@ -115,6 +115,7 @@ public class UserService {
         user.setName(userUpdateRequest.getName());
         user.setEmail(userUpdateRequest.getEmail());
         user.setRole(role);
+
         Users savedUser = userRepository.save(user);
         UserResponse response = new UserResponse();
         response.setId(savedUser.getId());

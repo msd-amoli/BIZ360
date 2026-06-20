@@ -20,6 +20,11 @@ import CreateInvoicePage from "../pages/sales/CreateInvoicePage";
 import InvoiceDetailPage from "../pages/sales/InvoiceDetailPage";
 import CreateProductPage from "../pages/masters/CreateProductPage";
 import StockLedgerPage from "../pages/reports/StockLedgerPage";
+import UsersPage from "../pages/User/UsersPage";
+import CreateUserPage from "../pages/User/CreateUserPage";
+import UserDetailPage from "../pages/User/UserDetailPage";
+
+
 
 function AppRoutes() {
   return (
@@ -60,7 +65,15 @@ function AppRoutes() {
           path="/reports/low-stock"
           element={<LowStockReportPage />}
         />
-
+<Route path="/users" element={<UsersPage />} />
+<Route
+  path="/users/new"
+  element={<CreateUserPage />}
+/>
+<Route
+  path="/users/:id"
+  element={<UserDetailPage />}
+/>
         <Route
           path="/ai-assistant"
           element={<AiAssistantPage />}

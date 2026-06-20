@@ -122,12 +122,9 @@ const menuItems = [
     children:[
       {
         label:"User Management",
-        path:null,
+        path:"/users",
       },
-      {
-        label:"Roles",
-        path:null,
-      }
+      
 
     ]
   }

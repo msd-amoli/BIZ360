@@ -14,4 +14,6 @@ public class UserUpdateRequest {
 
     @NotBlank(message = "role is required")
     private String role;
+
+
 }
