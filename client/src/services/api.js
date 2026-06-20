@@ -23,6 +23,18 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
-
+export const sendAiMessage = (message) => {
+  return axios.post(
+    "http://localhost:8080/api/ai/chat",
+    null,
+    {
+      params: { message },
+      headers: {
+        userId: "1",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      }
+    }
+  );
+};
 
 export default api;

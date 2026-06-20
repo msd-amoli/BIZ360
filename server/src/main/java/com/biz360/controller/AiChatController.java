@@ -17,8 +17,9 @@ public class AiChatController {
 
     @PostMapping("/chat")
     public AiResponse chat(
-            @RequestParam String message
+            @RequestParam String message,
+            @RequestHeader("userId") String userId
     ) {
-        return aiOrchestratorService.process(message);
+        return aiOrchestratorService.process(message,userId);
     }
 }
