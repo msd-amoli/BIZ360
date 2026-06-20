@@ -1,0 +1,105 @@
+text,intent
+Hello,GREETING
+Hi,GREETING
+Hey,GREETING
+Good morning,GREETING
+Good evening,GREETING
+Greetings,GREETING
+
+What can you do?,HELP
+Help me,HELP
+Show available commands,HELP
+How can you help me?,HELP
+What features do you have?,HELP
+Show help,HELP
+
+How do I create a purchase order?,CREATE_PO
+Create a PO,CREATE_PO
+How can I make a purchase order?,CREATE_PO
+Show me how to create purchase order,CREATE_PO
+I want to create a PO,CREATE_PO
+Guide me to create purchase order,CREATE_PO
+
+How do I create an invoice?,CREATE_INVOICE
+Create invoice,CREATE_INVOICE
+How can I make an invoice?,CREATE_INVOICE
+Show invoice creation steps,CREATE_INVOICE
+Guide me to create invoice,CREATE_INVOICE
+I want to create an invoice,CREATE_INVOICE
+
+How do I add a product?,ADD_PRODUCT
+Create a new product,ADD_PRODUCT
+Add product master,ADD_PRODUCT
+I want to add product,ADD_PRODUCT
+Guide me to create product,ADD_PRODUCT
+Show product creation steps,ADD_PRODUCT
+
+How do I create a user?,CREATE_USER
+Add new user,CREATE_USER
+Create system user,CREATE_USER
+I want to add user,CREATE_USER
+Guide me to create user,CREATE_USER
+Show user creation steps,CREATE_USER
+
+How do I create a warehouse?,CREATE_WAREHOUSE
+Add warehouse,CREATE_WAREHOUSE
+Create warehouse,CREATE_WAREHOUSE
+I want to add warehouse,CREATE_WAREHOUSE
+Guide me to create warehouse,CREATE_WAREHOUSE
+Show warehouse creation steps,CREATE_WAREHOUSE
+
+How do I create UOM?,ADD_UOM
+Add unit of measure,ADD_UOM
+Create unit of measure,ADD_UOM
+Add new UOM,ADD_UOM
+Guide me to create UOM,ADD_UOM
+Show UOM creation steps,ADD_UOM
+
+Show low stock products,LOW_STOCK
+Which products are low in stock?,LOW_STOCK
+Products needing restock,LOW_STOCK
+Show items below minimum stock,LOW_STOCK
+Display low inventory products,LOW_STOCK
+What products need restocking?,LOW_STOCK
+
+Show inventory summary,INVENTORY_SUMMARY
+Give inventory summary,INVENTORY_SUMMARY
+Display inventory overview,INVENTORY_SUMMARY
+Show stock summary,INVENTORY_SUMMARY
+Inventory report summary,INVENTORY_SUMMARY
+Provide inventory information,INVENTORY_SUMMARY
+
+How many products do we have?,TOTAL_PRODUCTS
+Show total products,TOTAL_PRODUCTS
+Count all products,TOTAL_PRODUCTS
+Number of products,TOTAL_PRODUCTS
+Display product count,TOTAL_PRODUCTS
+Total products in system,TOTAL_PRODUCTS
+
+Show today's sales,TODAY_SALES
+Today's revenue,TODAY_SALES
+Display today's invoices,TODAY_SALES
+Show sales today,TODAY_SALES
+How much did we sell today?,TODAY_SALES
+Today's sales report,TODAY_SALES
+
+Show revenue summary,REVENUE_SUMMARY
+Display revenue report,REVENUE_SUMMARY
+Revenue overview,REVENUE_SUMMARY
+Show total revenue,REVENUE_SUMMARY
+Business revenue summary,REVENUE_SUMMARY
+Display revenue information,REVENUE_SUMMARY
+
+Which products sell the most?,HIGH_SALE
+Highest selling products,HIGH_SALE
+Top selling products,HIGH_SALE
+Show best selling products,HIGH_SALE
+Products with highest sales,HIGH_SALE
+Most sold products,HIGH_SALE
+
+Which products sell the least?,LOW_SALE
+Lowest selling products,LOW_SALE
+Show least selling products,LOW_SALE
+Products with lowest sales,LOW_SALE
+Least sold products,LOW_SALE
+Show products selling slowly,LOW_SALE

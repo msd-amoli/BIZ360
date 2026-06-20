@@ -1,7 +1,8 @@
-function AiAssistantpage(){
-    return (
-        <div><h1>Hi i am AI BiZ to help you...</h1></div>
-    )
+import { useState } from "react";
+import api from "../../services/api";
+import { useNavigate } from "react-router-dom";
+export default function AiAssistantPage() {
+   return(
+    <div></div>
+  );
 }
-
-export default AiAssistantpage;
