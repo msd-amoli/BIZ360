@@ -1,6 +1,7 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
+import AiAssistant from "../../pages/ai-assistant/AiAssistant"
 import "../../styles/layout.css";
 
 function MainLayout() {
@@ -15,6 +16,8 @@ function MainLayout() {
           <Outlet />
         </main>
       </div>
+
+      <AiAssistant />
     </div>
   );
 }

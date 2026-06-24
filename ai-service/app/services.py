@@ -6,12 +6,27 @@ from app.erp_client import (
     get_invoice_by_id
 )
 from app.context_manager import context_manager
+from app.memory_engine import MemoryEngine
+from app.ai_response_formatter import AIResponseFormatter
+
 import re
 
+# INIT
 intent_model = IntentModel()
+memory_engine = MemoryEngine()
+formatter = AIResponseFormatter()
 
+def is_safe_intent(intent: str, message: str):
+    msg = message.lower().strip()
+
+  
+    if intent == "CREATE_PO":
+        if msg in ["hi", "hello", "hey", "bye"]:
+            return False
+    return True
 
 def extract_context(message: str, context: list):
+
     last_user_msgs = [
         c["message"] if isinstance(c["message"], str)
         else c["message"].get("message", "")
@@ -28,19 +43,45 @@ def extract_context(message: str, context: list):
     }
 
 
+
+def build_response(intent, data, message, session_id, context_data):
+
+    memory_engine.update(session_id, intent, data, message)
+
+    raw_reply = formatter.format(intent, data, message)
+
+    return {
+        "intent": intent,
+        "reply": raw_reply,
+        "data": data,
+        "context_hint": context_data
+    }
+
+
+
 def generate_reply(message: str, context: list, token: str):
 
+    session_id = (
+        context[0].get("session_id", "default")
+        if context and isinstance(context[0], dict)
+        else "default"
+    )
+
     intent = intent_model.predict(message)
+    if not is_safe_intent(intent, message):
+     return {
+        "intent": "FALLBACK",
+        "reply": "I’m here to help you with ERP tasks like inventory, users, invoices, and purchase orders. Please ask something related to the system.",
+        "data": None,
+        "context_hint": extract_context(message, context)
+    }
+
     context_data = extract_context(message, context)
 
-    # SAFE SESSION ID (FIXED)
-    session_id = context[0].get("session_id", "default") if context else "default"
+    resolved_entity = memory_engine.resolve(session_id, message)
 
     flow_state = context_manager.get_flow_state(session_id)
 
-    # -----------------------------
-    # PO FLOW
-    # -----------------------------
     if flow_state and flow_state.get("type") == "CREATE_PO":
 
         if flow_state.get("step") == "SELECT_ITEM":
@@ -50,59 +91,27 @@ def generate_reply(message: str, context: list, token: str):
 
             context_manager.set_flow_state(session_id, flow_state)
 
-            return {
-                "intent": "CREATE_PO_FLOW",
-                "reply": f"You selected '{message}'. Confirm PO creation? (yes/no)",
-                "data": flow_state,
-                "context_hint": context_data
-            }
+            return build_response(intent, flow_state, message, session_id, context_data)
 
         if flow_state.get("step") == "CONFIRM":
 
             if message.lower() == "yes":
-
                 context_manager.clear_flow_state(session_id)
-
-                return {
-                    "intent": "CREATE_PO_FLOW",
-                    "reply": "PO created successfully (mock step for now)",
-                    "data": flow_state,
-                    "context_hint": context_data
-                }
+                return build_response(intent, flow_state, message, session_id, context_data)
 
             context_manager.clear_flow_state(session_id)
+            return build_response(intent, flow_state, message, session_id, context_data)
 
-            return {
-                "intent": "CREATE_PO_FLOW",
-                "reply": "PO cancelled",
-                "data": flow_state,
-                "context_hint": context_data
-            }
-
-    # LOW STOCK
     if intent == "LOW_STOCK":
         data = get_low_stock(token)
-        return {
-            "intent": intent,
-            "reply": "Here are low stock items",
-            "data": data,
-            "context_hint": context_data
-        }
+        return build_response(intent, data, message, session_id, context_data)
 
-    # USERS
+
     elif intent == "USER_COUNT":
-        users = get_users(token)
+        data = get_users(token)
+        return build_response(intent, data, message, session_id, context_data)
 
-        count = users.get("totalElements", len(users.get("content", [])))
-
-        return {
-            "intent": intent,
-            "reply": f"Total users: {count}",
-            "data": users,
-            "context_hint": context_data
-        }
-
-    # SALES
+   
     elif intent == "SALES_REPORT":
         invoices = get_invoices(token)
 
@@ -112,17 +121,16 @@ def generate_reply(message: str, context: list, token: str):
             if inv.get("status") != "CANCELLED"
         )
 
-        return {
-            "intent": intent,
-            "reply": f"Total sales (excluding cancelled): {total_sales}",
-            "data": {"totalSales": total_sales},
-            "context_hint": context_data
-        }
+        data = {"totalSales": total_sales}
 
-    # INVOICE DETAIL
+        return build_response(intent, data, message, session_id, context_data)
+
     elif intent == "INVOICE_DETAIL":
 
         invoice_id = context_data["number"]
+
+        if not invoice_id and resolved_entity:
+            invoice_id = resolved_entity.get("value")
 
         if not invoice_id:
             return {
@@ -134,32 +142,25 @@ def generate_reply(message: str, context: list, token: str):
 
         data = get_invoice_by_id(token, int(invoice_id))
 
-        return {
-            "intent": intent,
-            "reply": f"Here is invoice {invoice_id}",
-            "data": data,
-            "context_hint": context_data
-        }
+        return build_response(intent, data, message, session_id, context_data)
 
-    # CREATE PO
+   
     elif intent == "CREATE_PO":
 
-        context_manager.set_flow_state(session_id, {
+        flow = {
             "type": "CREATE_PO",
             "step": "SELECT_ITEM",
             "session_id": session_id
-        })
-
-        return {
-            "intent": intent,
-            "reply": "Select item from low stock list to create PO",
-            "data": None,
-            "context_hint": context_data
         }
 
+        context_manager.set_flow_state(session_id, flow)
+
+        return build_response(intent, None, message, session_id, context_data)
+
+ 
     return {
-        "intent": intent,
-        "reply": "I didn't understand the request",
-        "data": None,
-        "context_hint": context_data
-    }
+    "intent": "FALLBACK",
+    "reply": "I couldn't map your request properly. Try asking about inventory, users, invoices, or purchase orders.",
+    "data": None,
+    "context_hint": context_data
+}

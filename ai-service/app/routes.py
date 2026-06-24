@@ -8,7 +8,7 @@ router = APIRouter()
 
 @router.post("/chat")
 def chat(request: ChatRequest):
-
+    print ("Token ",request.token)
     context_manager.add_message(
         request.session_id,
         "user",

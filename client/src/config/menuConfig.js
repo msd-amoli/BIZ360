@@ -79,15 +79,7 @@ const menuItems = [
     ],
   },
 
-  {
-    label: "AI Assistant",
-    children: [
-      {
-        label: "ERP Help Chat",
-        path: "/ai-assistant",
-      },
-    ],
-  },
+
 
   {
     label: "CRM",

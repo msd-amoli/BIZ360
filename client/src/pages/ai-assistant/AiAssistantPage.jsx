@@ -28,7 +28,7 @@ export default function AiAssistantPage() {
         body: JSON.stringify({
           session_id: sessionId,
           message: input,
-          token: "abc123",
+          token: localStorage.getItem("token"),
         }),
       });
 
