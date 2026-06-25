@@ -36,26 +36,50 @@ class IntentModel:
         # REAL TRAINING DATASET (expand later anytime)
         training_data = [
             ("hello", "GREETING"),
-            ("hi", "GREETING"),
-            ("hey", "GREETING"),
+    ("hi", "GREETING"),
+    ("hey", "GREETING"),
+    ("good morning", "GREETING"),
+    ("good evening", "GREETING"),
 
-            ("show users", "USER_COUNT"),
-            ("list users", "USER_COUNT"),
-            ("how many users", "USER_COUNT"),
+    # ---------------- USERS ----------------
+    ("show users", "USER_COUNT"),
+    ("list users", "USER_COUNT"),
+    ("how many users", "USER_COUNT"),
+    ("user list", "USER_COUNT"),
+    ("total users in system", "USER_COUNT"),
 
-            ("low stock", "LOW_STOCK"),
-            ("show low stock items", "LOW_STOCK"),
-            ("inventory low", "LOW_STOCK"),
+    # ---------------- LOW STOCK ----------------
+    ("low stock", "LOW_STOCK"),
+    ("show low stock items", "LOW_STOCK"),
+    ("inventory low", "LOW_STOCK"),
+    ("which items need restock", "LOW_STOCK"),
+    ("stock below minimum level", "LOW_STOCK"),
 
-            ("sales report", "SALES_REPORT"),
-            ("total sales", "SALES_REPORT"),
+    # ---------------- SALES ----------------
+    ("sales report", "SALES_REPORT"),
+    ("total sales", "SALES_REPORT"),
+    ("revenue report", "SALES_REPORT"),
+    ("monthly sales", "SALES_REPORT"),
+    ("show earnings", "SALES_REPORT"),
 
-            ("invoice details", "INVOICE_DETAIL"),
-            ("show invoice", "INVOICE_DETAIL"),
+    # ---------------- INVOICE ----------------
+    ("invoice details", "INVOICE_DETAIL"),
+    ("show invoice", "INVOICE_DETAIL"),
+    ("get invoice", "INVOICE_DETAIL"),
+    ("invoice info", "INVOICE_DETAIL"),
+    ("find invoice", "INVOICE_DETAIL"),
+    ("show user names", "USER_LIST"),
+("user names", "USER_LIST"),
+("admin list", "USER_LIST"),
+("list users names", "USER_LIST"),
+("give names", "USER_LIST"),
 
-            ("create po", "CREATE_PO"),
-            ("make purchase order", "CREATE_PO"),
-            ("generate po", "CREATE_PO"),
+    # ---------------- PURCHASE ORDER ----------------
+    ("create po", "CREATE_PO"),
+    ("make purchase order", "CREATE_PO"),
+    ("generate purchase order", "CREATE_PO"),
+    ("new po", "CREATE_PO"),
+    ("start purchase order", "CREATE_PO"),
         ]
 
         texts = [t[0] for t in training_data]
@@ -81,11 +105,19 @@ class IntentModel:
                 "vectorizer": self.vectorizer
             }, f)
 
-
     def predict(self, message: str):
 
-        if not self.model:
-            return "UNKNOWN"
+     if not self.model:
+        return "UNKNOWN", 0.0
 
-        X = self.vectorizer.transform([message.lower()])
-        return self.model.predict(X)[0]
+     X = self.vectorizer.transform([message.lower()])
+
+     proba = self.model.predict_proba(X)[0]
+     label = self.model.classes_[proba.argmax()]
+     confidence = float(proba.max())
+
+     # fallback logic (IMPORTANT)
+     if confidence < 0.35:
+        return "UNKNOWN", confidence
+
+     return label, confidence
